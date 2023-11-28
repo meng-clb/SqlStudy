@@ -26,13 +26,21 @@ for url in url_list:
 	resp.encoding = 'gbk'
 	html = etree.HTML(resp.text)
 	title = str(html.xpath('//h1/text()')[0])
-	print(title)
-	print(type(title))
+	# print(title)
+	# print(type(title))
 	content = ''.join(html.xpath('//div[@class="artbody"]/p/text()'))
-	print(type(content))
-	print(content)
+	# print(type(content))
+	# print(content)
 	try:
+		# 查询表中中的所有数据条数
+		sql = 'select count(*) from story'
+		cursor.execute(sql)
+		count_value = int(cursor.fetchone()[0])
+		new_value = count_value + 1
+		# 把自增的id按照数据存在的条数进行顺序保存
+		sql = f'alter table story auto_increment = {new_value}'
 		# 把标题和内容写入数据库内
+		cursor.execute(sql)
 		sql = f'insert into story values(null, "{title}", "{content}")'
 		cursor.execute(sql)
 		db.commit()
