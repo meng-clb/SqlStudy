@@ -1,0 +1,37 @@
+MongoDB使用:
+1. 打开终端, 开启服务后, 挂在后台, 开启另外一个终端, MongoDB设置了全局变量
+> mongod.exe --dbpath=数据库存储路径
+> mongod.exe --dbpath=C:\Users\clb14\Desktop\mongodb
+
+
+2. 打开新的终端, 新版本的MongoDB需要另外安装sh, 下载文件后, 解压出来的文件放在MongoDB安装目录bin文件夹下: mongosh.exe用来使用MongoDB命令
+> mongosh
+
+> use '数据库名'
+> show dbs # 查询所有的库
+> show collections  # 查询所有的文档
+> db.createCollection('文档名')  # 创建新的文档
+
+
+ 直接使用库, 在库内建立表之后, 库就自动创建
+> 可以不用创建表, 直接在表内插入数据后, 会自动建立这个表
+> db.表名.insertOne({'name': 'clb'})  # 自动建立表, 并写入数据
+
+> db.表名.insertOne({'key': 'value'})  # 写入一条数据
+> db.表名.insertMany({'key': 'value', 'key': 'value'})  # 写入多条数据
+
+ 当一个库内的所有表都删除完时, 库也不存在了
+> db.表名.deleteOne({[条件(为空时删除第一条)]})  # 删除一条数据
+> db.表名.deleteMany({[条件(为空时删除所有)]})  # 删除多条数据
+> db.表名.drop()  # 删除表
+> db.dropDatabase()  # 删除当前使用的库
+
+ 条件为空时, 修改第一条数据
+> db.表名.updateOne({条件}, {$set: {'key', 'value'}}) # 修改一条数据
+
+> 条件为空时, 修改所有的数据
+> db.表名.updateMany({条件}, {$set: {'key', 'value'}}) # 修改多条数据
+
+> db.表名.find()  # 查找所有的数据
+> db.表名.find({'key': 'value'})  # 查找符合条件的数据
+> db.表名.find({'key': 'value'}, {'_id': 0, 'key': [0/1],})  # 后半部分设置要显示的key
