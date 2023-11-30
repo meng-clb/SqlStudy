@@ -1,0 +1,53 @@
+redis使用
+1. 打开终端, 开启服务后, 挂在后台, 开启另外一个终端
+进入到redis所在目录: 执行命令 -> redis-server.exe redis.windows.conf
+> cd C:\Tool\Redis
+> redis-server.exe redis.windows.conf
+
+2. 进入到redis所在目录: 执行命令 -> Redis-cli.exe
+> cd C:\Tool\Redis
+> Redis-cli.exe
+> auth 'root' # 使用密码连接服务
+
+config get databases 查看所有的数据库, 数据库从0开始, 一共16个, 默认第0个
+> select 库的数值
+> select 15  # 选择第16个库
+
+> set key value  # 设置键/值  设置一个重复的键时, 后边会覆盖前边的设置
+> get key  # 获取键对应的值
+设置键过期的时间, 以s为单位
+> setex key time value  # 设置键, 并且设置过期时间
+> setex name 20 clb  # 设置20s过期
+> expire key time  # 设置已存在的键过期时间
+> ttl key  # 查看剩余过期时间
+> persist key  # 取消过期时间
+设置多个键/值
+> mset key value key value ...
+获取多个值
+> mget key key ...
+> getrange key start end  # 获取值得长度截取
+> getrange name 0 2   # "name":'this is a' -> thi 截取[0-2]
+> getset key value  # 将改变key的值, 并返回原来的value
+> incr key  # 对应的数值+1
+> decr key  # 对应的数值-1
+> incrby key intnum  # key对应的值加整数
+> decrby key intnum  # 对应值减整数
+> strlen key  # 获取值得长度
+> keys *  # 查找所有的键
+> exists key  # 判断值键是否存在, 存在 -> 1, 不存在 -> 0
+> type name  #查看键对应的类型
+> del key key ...  # 删除键及对应的值
+> flushdb  # 清空当前库所有数据
+> flushall  # 删除所有库的数据
+> renaem key newkey  # 修改键的名字(仅在newkey不存在时)
+> randomkey  # 随机返回一个值
+
+hash 哈希本质是一个字典
+> hset 字典名 key value  # 设置一个值
+> hget 字典名 key  # 获取一个值
+> hmset 字典名 key value key value ... # 设置多个值
+> hmget 字典名 key key key ...  # 获取多个值
+> hgetall 字典名  # 获取所有字段和值
+> hkeys 字典名  # 获取所有字段
+> hvals 字典名  # 获取所有的值
+> hlen 字典名  # 返回包含数据的个数
